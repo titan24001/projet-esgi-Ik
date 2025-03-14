@@ -1,33 +1,74 @@
-# Choisir l'enonce en fonction de votre langue | Choosing the right advert for your language
+#  Structure du Projet et Organisation
 
-[![English](https://img.shields.io/badge/lang-en-red.svg)](https://github.com/ulrich-sun/projet-esgi/blob/main/enonce-en.md)
-[![français](https://img.shields.io/badge/lang-fr-blue.svg)](https://github.com/ulrich-sun/projet-esgi/blob/main/enonce-fr.md)
+│── Kubernetes/
+│   ├── backend-deployment.yaml
+│   ├── backend-service.yaml
+│   ├── db-deployment.yaml
+│   ├── db-service.yaml
+│   ├── pvc.yaml
+│   ├── secrets.yaml
+│── initdb
+│──src
+│──stack
+│──target
+│──src
+│.dockerignore
+│.gitignore
+│Dockerfile
+│README.md
+│docker-compose.yml
+│enonce-en.md
+│enonce-fr.md
+│pom.xml
+
+# 1 Nous commençons par cloner le repo GitHub sur notre VM
+
+![image](https://github.com/user-attachments/assets/7d9fc018-157d-4dc7-92ff-647318f1dd02)
+
+# 2 Construire l’image Docker de l’application.
+Pour construire l’image localement :
+docker build -t paymybuddy-backend:latest .
+![image](https://github.com/user-attachments/assets/a741fe8a-b8db-4d64-975b-10f09128c89f)
+
+# 3 Lancer l’application en local avec Docker Compose
+![image](https://github.com/user-attachments/assets/40f0de70-d8fb-4a90-b591-60337aa4f266)
+![image](https://github.com/user-attachments/assets/1d98278c-6a73-473a-91f5-299e5eb48bfa)
+
+# 4 Vérification des conteneurs avec Docker ps
+![image](https://github.com/user-attachments/assets/2543b13d-ce03-48b8-8d2b-f22a45e52718)
+
+# 5 Tester l’application
+•	Ouvre un navigateur sur http://localhost:8080
+![image](https://github.com/user-attachments/assets/03b6b47f-6910-4a48-b654-8b18fe11efbe)
 
 
-# Conseils
 
-- Pour travailler plus efficacement, commencez par forker ce dépôt.
-- Clonez votre fork sur votre serveur.
-- Créez les dossiers de travail et les fichiers nécessaires.
-- Utilisez les workflows Git pour sauvegarder l’ensemble de vos travaux sur votre dépôt GitHub.
-- Votre dépôt GitHub peut servir de portfolio pour certains, il est donc important de bien le structurer.
-- Je vous propose une stack vagrant dans le dossier **stack**
-    pour lancer cette stack vous aurez besoin de VirtualBox en version 7.0.20 et de vagrant en version 2.4.1
-    vous devez vous rendre dans le dossier stack 
-    en fonction de votre terminal de travail sous windows vous devez creer une variable pour le choix du script 
-    si vous etes sur **CMD** alors c'est **set SCRIPT_NAME="k3s.sh"**
-    si vous etes sur **Powershell** alors c'est **$env:SCRIPT_NAME="k3s.sh"**
-    si vous etes sur linux via un terminal alors c'est **export SCRIPT_NAME="k3s.sh"**
-    Une fois la variable configurer vous lancez la commande vagrant up
-NB: k3s est l'un des scripts disponible , vous pouvez allez sur du minikube et dans ce cas ne rien changer 
+# 6	Pousser l’image sur un registre Docker Hub
 
-# Tips
-- To work more efficiently, start by forking this repository.
-- Clone your fork to your server.
-- Create the necessary working folders and files.
-- Use Git workflows to back up all your work to your GitHub repository.
-- Your GitHub repository can serve as a portfolio for some, so it’s important to structure it well.
-    I am providing a Vagrant stack in the stack folder. To launch this stack, you will need VirtualBox version 7.0.20 and Vagrant version 2.4.1. You should navigate to the stack folder. Depending on your working terminal in Windows, you need to create a variable for the script choice. If you are using **CMD**, then it's **set SCRIPT_NAME="k3s.sh"**. If you are using **Powershell**, then it's **$env:SCRIPT_NAME="k3s.sh"**.If your are using linux terminal then it's **export SCRIPT_NAME="k3s.sh"**. Once the variable is configured, you run the command vagrant up.
-NB: k3s is one of the scripts availabale, you can go to Minikube and in htis case change nothing
+docker login
 
-**![](https://lh7-rt.googleusercontent.com/docsz/AD_4nXc-CjKFk4NY9yXiR1oheHsFR4YYn4HcD_0A6fgd11tHcT3p1U2RKXvIs6HflkvuLOOUzFxzxYCjDno2f1p6_q31dDE9AaUoEx1pi0Fs9ApJG2czL-88xrx3XO-oEP5ZXXsyXw0GKjA2W0A5q1Bk979SB1M?key=mLqAl_ccMoG4hHcRzSYKpw)**
+On tag l'image 
+docker tag paymybuddy-backend:latest titan111/paymybuddy-backend:latest
+
+Puis, on push l'image 
+docker push  titan111/paymybuddy-backend:latest
+![image](https://github.com/user-attachments/assets/dd55400a-b829-4111-83e0-c84d47ef5c3a)
+
+
+# 7	Déployer l’application dans un cluster Kubernetes.
+Appliquer les manifests avec la commande :
+
+kubectl apply -f Kubernetes
+
+![image](https://github.com/user-attachments/assets/91044e85-bf6f-4701-b488-eac1b2842815)
+
+## Lister les pods 
+![image](https://github.com/user-attachments/assets/0d2f6b52-fd54-4f76-a824-bae607a6d7bb)
+
+## Lister les services
+
+![image](https://github.com/user-attachments/assets/26bd3587-d4fe-4933-9054-6054210d0250)
+
+# 8 Résultat 
+![image](https://github.com/user-attachments/assets/0c0367d0-de42-4371-947f-0c6e0c2be6c6)
+
