@@ -1,25 +1,7 @@
 #  Structure du Projet et Organisation
 
-│── Kubernetes/
-│   ├── backend-deployment.yaml
-│   ├── backend-service.yaml
-│   ├── db-deployment.yaml
-│   ├── db-service.yaml
-│   ├── pvc.yaml
-│   ├── secrets.yaml
-│── initdb
-│──src
-│──stack
-│──target
-│──src
-│.dockerignore
-│.gitignore
-│Dockerfile
-│README.md
-│docker-compose.yml
-│enonce-en.md
-│enonce-fr.md
-│pom.xml
+![image](https://github.com/user-attachments/assets/5978fe60-6b0e-404c-8ade-8428c8da88ef)
+
 
 # 1 Nous commençons par cloner le repo GitHub sur notre VM
 
